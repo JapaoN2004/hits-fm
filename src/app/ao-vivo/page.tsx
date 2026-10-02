@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LiveStudio } from "@/components/player/live-studio";
+import { PageHeader } from "@/components/ui/page-header";
 import { Section } from "@/components/ui/section";
 
 export const metadata: Metadata = {
@@ -9,8 +10,11 @@ export const metadata: Metadata = {
 
 export default function AoVivoPage() {
   return (
-    <Section title="Ao vivo">
-      <LiveStudio />
-    </Section>
+    <>
+      <PageHeader title="Ao vivo" />
+      <Section>
+        <LiveStudio />
+      </Section>
+    </>
   );
 }

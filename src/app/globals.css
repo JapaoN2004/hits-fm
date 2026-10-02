@@ -27,6 +27,7 @@
   --accent: var(--brand-orange);
   --accent-fg: #1a0c00;
   --live: #e0202f;
+  --whatsapp: #1f8f4e;
 }
 
 @theme inline {
@@ -46,6 +47,7 @@
   --color-accent-dark: var(--brand-orange-dark);
   --color-accent-fg: var(--accent-fg);
   --color-live: var(--live);
+  --color-whatsapp: var(--whatsapp);
 
   --font-display: var(--font-montserrat);
   --font-sans: var(--font-open-sans);

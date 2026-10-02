@@ -9,9 +9,13 @@ export const site = {
   description:
     "Hits FM 93.5, Palmas – Tocantins. Flashbacks, MPB e os maiores hits, ao vivo 24 horas.",
   timeZone: "America/Araguaina",
+  // Endereço público do site (links compartilhados, Open Graph, sitemap).
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.hitsfmto.com.br",
   // NEXT_PUBLIC_STREAM_URL permite apontar para outro stream (ex.: testes locais).
   streamUrl:
     process.env.NEXT_PUBLIC_STREAM_URL || "https://sonicpanel.oficialserver.com/8200/stream",
+  // TODO(cliente): link de incorporação (embed) da TV Cristal ao vivo, ex.: YouTube.
+  tvCristalEmbedUrl: null as string | null,
   contact: {
     phone: "(63) 98150-0935",
     whatsapp: "5563981500935",

@@ -15,6 +15,7 @@ const montserrat = Montserrat({
 const openSans = Open_Sans({ variable: "--font-open-sans", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: { default: `${site.name} · ${site.city}`, template: `%s · ${site.shortName}` },
   description: site.description,
 };

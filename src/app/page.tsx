@@ -1,21 +1,16 @@
-import { ArrowRight, Gift, Newspaper, Smartphone, User } from "lucide-react";
+import { ArrowRight, Gift, Smartphone } from "lucide-react";
 import Link from "next/link";
+import { HostCard } from "@/components/hosts/host-card";
+import { NewsCard } from "@/components/news/news-card";
 import { HeroSlider } from "@/components/home/hero-slider";
 import { OnAirBar } from "@/components/home/on-air-bar";
 import { ScheduleTabs } from "@/components/home/schedule-tabs";
-import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { hosts } from "@/data/hosts";
 import { news } from "@/data/news";
 import { site } from "@/lib/site";
-
-const dateFmt = new Intl.DateTimeFormat("pt-BR", {
-  day: "2-digit",
-  month: "long",
-  timeZone: site.timeZone,
-});
 
 export default function Home() {
   return (
@@ -91,28 +86,9 @@ export default function Home() {
         }
       >
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {news.map((post) => (
+          {news.slice(0, 6).map((post) => (
             <li key={post.id}>
-              <Link
-                href={`/noticias/${post.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-md bg-white shadow-sm hover:shadow-md"
-              >
-                {/* Capa real chega com a importação do WordPress (fase 6). */}
-                <div className="bg-surface-3 text-subtle grid aspect-video place-items-center">
-                  <Newspaper className="size-10" aria-hidden />
-                </div>
-                <div className="flex flex-1 flex-col gap-3 p-5">
-                  <div className="flex items-center gap-3 text-sm">
-                    <Badge tone="primary">{post.category}</Badge>
-                    <time dateTime={post.publishedAt} className="text-subtle">
-                      {dateFmt.format(new Date(post.publishedAt))}
-                    </time>
-                  </div>
-                  <h3 className="group-hover:text-primary text-lg leading-snug font-bold">
-                    {post.title}
-                  </h3>
-                </div>
-              </Link>
+              <NewsCard post={post} />
             </li>
           ))}
         </ul>
@@ -129,20 +105,7 @@ export default function Home() {
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {hosts.map((h) => (
             <li key={h.id}>
-              <Link
-                href={`/locutores/${h.slug}`}
-                className="group border-border block overflow-hidden rounded-md border bg-white text-center shadow-sm hover:shadow-md"
-              >
-                <div className="bg-primary grid aspect-square place-items-center text-white/70">
-                  <User className="size-20" aria-hidden />
-                </div>
-                <div className="p-5">
-                  <h3 className="group-hover:text-primary text-xl font-extrabold uppercase">
-                    {h.name}
-                  </h3>
-                  <p className="text-muted mt-2">{h.bio}</p>
-                </div>
-              </Link>
+              <HostCard host={h} />
             </li>
           ))}
         </ul>

@@ -32,11 +32,15 @@ export type NewsPost = {
   category: string;
   publishedAt: string; // ISO
   cover?: string;
+  content: string[]; // parágrafos (o HTML sanitizado do banco entra na fase 4)
 };
 
 export type Promotion = {
   id: string;
+  slug: string;
   title: string;
   summary: string;
-  endsAt?: string;
+  howTo: string[];
+  rules: string[];
+  endsAt: string; // ISO
 };
