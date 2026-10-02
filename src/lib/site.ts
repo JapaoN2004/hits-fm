@@ -9,7 +9,9 @@ export const site = {
   description:
     "Hits FM 93.5, Palmas – Tocantins. Flashbacks, MPB e os maiores hits, ao vivo 24 horas.",
   timeZone: "America/Araguaina",
-  streamUrl: "https://sonicpanel.oficialserver.com/8200/stream",
+  // NEXT_PUBLIC_STREAM_URL permite apontar para outro stream (ex.: testes locais).
+  streamUrl:
+    process.env.NEXT_PUBLIC_STREAM_URL || "https://sonicpanel.oficialserver.com/8200/stream",
   contact: {
     phone: "(63) 98150-0935",
     whatsapp: "5563981500935",

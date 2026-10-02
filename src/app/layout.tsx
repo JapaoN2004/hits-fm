@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { PlayerBar } from "@/components/player/player-bar";
+import { PlayerProvider } from "@/components/player/player-provider";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -24,12 +26,16 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className={`${montserrat.variable} ${openSans.variable}`}>
-      <body className="flex min-h-dvh flex-col antialiased">
-        <Header />
-        <main id="conteudo" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+      {/* pb-24: espaço para o player fixo no rodapé. */}
+      <body className="flex min-h-dvh flex-col pb-24 antialiased">
+        <PlayerProvider>
+          <Header />
+          <main id="conteudo" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <PlayerBar />
+        </PlayerProvider>
       </body>
     </html>
   );

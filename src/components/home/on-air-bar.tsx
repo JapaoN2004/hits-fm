@@ -1,7 +1,6 @@
 "use client";
 
-import { Play } from "lucide-react";
-import Link from "next/link";
+import { PlayButton } from "@/components/player/play-button";
 import { LiveBadge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
 import { formatHour, onAirNow } from "@/lib/schedule";
@@ -15,12 +14,10 @@ export function OnAirBar() {
   return (
     <div className="border-border bg-surface-2 border-b">
       <Container className="flex flex-wrap items-center gap-x-8 gap-y-3 py-4">
-        <Link href="/ao-vivo" className="group flex items-center gap-3">
-          <span className="bg-accent text-accent-fg group-hover:bg-accent-dark grid size-12 place-items-center rounded-full">
-            <Play className="size-5 fill-current" aria-hidden />
-          </span>
+        <div className="flex items-center gap-3">
+          <PlayButton size="md" />
           <span className="font-display font-extrabold uppercase">Ouça agora</span>
-        </Link>
+        </div>
         <div className="flex items-center gap-3">
           <LiveBadge />
           <span className="font-semibold">

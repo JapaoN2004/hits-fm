@@ -1,11 +1,11 @@
 "use client";
 
-import { Menu, Radio, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FacebookIcon, InstagramIcon, WhatsappIcon } from "@/components/icons/social";
-import { ButtonLink } from "@/components/ui/button";
+import { HeaderListenButton } from "@/components/player/header-listen-button";
 import { Container } from "@/components/ui/container";
 import { mainNav, site, whatsappLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -74,13 +74,7 @@ export function Header() {
       {/* Logo */}
       <Container className="flex h-24 items-center justify-between xl:relative xl:justify-center">
         <Logo />
-        <ButtonLink
-          href="/ao-vivo"
-          variant="accent"
-          className="absolute right-8 hidden xl:inline-flex"
-        >
-          <Radio /> Ouvir ao vivo
-        </ButtonLink>
+        <HeaderListenButton className="absolute right-8 hidden xl:inline-flex" />
         <button
           type="button"
           className="text-primary hover:bg-surface-2 grid size-12 place-items-center rounded-md xl:hidden"
@@ -118,9 +112,7 @@ export function Header() {
             ))}
           </ul>
           <div className="p-4 xl:hidden">
-            <ButtonLink href="/ao-vivo" variant="accent" size="lg" className="w-full">
-              <Radio /> Ouvir ao vivo
-            </ButtonLink>
+            <HeaderListenButton size="lg" className="w-full" />
           </div>
         </Container>
       </nav>

@@ -102,3 +102,14 @@ h4 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Equalizador do player: barras sobem e descem enquanto toca. */
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}

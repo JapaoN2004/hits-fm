@@ -1,6 +1,7 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Radio, Smartphone } from "lucide-react";
+import { ChevronLeft, ChevronRight, Smartphone } from "lucide-react";
+import { HeaderListenButton } from "@/components/player/header-listen-button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { WhatsappIcon } from "@/components/icons/social";
@@ -17,11 +18,7 @@ const slides = [
   {
     title: "A vida é feita de Hits!",
     text: "Flashbacks, MPB e os maiores sucessos dos anos 70 até hoje. Ao vivo de Palmas, 24 horas por dia.",
-    cta: (
-      <ButtonLink href="/ao-vivo" variant="accent" size="lg">
-        <Radio /> Ouvir ao vivo
-      </ButtonLink>
-    ),
+    cta: <HeaderListenButton size="lg" />,
   },
   {
     title: "Baixe o novo app da Hits",
