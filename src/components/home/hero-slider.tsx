@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight, Radio, Smartphone } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { WhatsappIcon } from "@/components/icons/social";
 import { ButtonLink } from "@/components/ui/button";
@@ -8,7 +9,10 @@ import { Container } from "@/components/ui/container";
 import { site, whatsappLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-// TODO(cliente): trocar os fundos chapados pelas artes dos banners da rádio.
+// Foto de fundo do banner (arquivo em /public). Com null, o banner fica só no azul.
+// TODO(cliente): foto de pessoas ouvindo música (licença livre) em public/images/banner-ouvintes.jpg.
+const heroPhoto: string | null = null;
+
 const slides = [
   {
     title: "A vida é feita de Hits!",
@@ -70,14 +74,33 @@ export function HeroSlider() {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <div
-        aria-hidden
-        className="bg-accent absolute inset-y-0 right-0 hidden w-1/3 translate-x-24 skew-x-[-12deg] md:block"
-      />
-      <div
-        aria-hidden
-        className="bg-primary-dark absolute inset-y-0 right-0 hidden w-1/3 translate-x-40 skew-x-[-12deg] md:block"
-      />
+      {heroPhoto ? (
+        <>
+          <Image
+            src={heroPhoto}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-right"
+          />
+          <div
+            aria-hidden
+            className="from-primary-dark via-primary/90 to-primary/20 absolute inset-0 bg-linear-to-r"
+          />
+        </>
+      ) : (
+        <>
+          <div
+            aria-hidden
+            className="bg-accent absolute inset-y-0 right-0 hidden w-1/3 translate-x-24 skew-x-[-12deg] md:block"
+          />
+          <div
+            aria-hidden
+            className="bg-primary-dark absolute inset-y-0 right-0 hidden w-1/3 translate-x-40 skew-x-[-12deg] md:block"
+          />
+        </>
+      )}
 
       <Container className="relative">
         {slides.map((s, i) => (
