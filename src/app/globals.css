@@ -1,26 +1,156 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens da Hits FM — conceito "estúdio de rádio à noite".
+ * TODO(cliente): ajustar --brand-blue e --brand-orange às cores oficiais do logo.
+ * Tema escuro é o padrão; o claro é ativado com <html data-theme="light">.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-blue: #1f5eff;
+  --brand-blue-strong: #3b7bff;
+  --brand-orange: #ff7a1a;
+  --brand-orange-strong: #ff9447;
+
+  --bg: #05070f;
+  --surface-1: #0b1022;
+  --surface-2: #121a33;
+  --surface-3: #1b2547;
+  --border: rgb(148 170 255 / 0.14);
+  --border-strong: rgb(148 170 255 / 0.28);
+
+  --text: #f3f5fb;
+  --text-muted: #b4bdd6;
+  --text-subtle: #8a94b3;
+
+  --primary: var(--brand-blue);
+  --primary-fg: #ffffff;
+  --accent: var(--brand-orange);
+  --accent-fg: #1a0c00;
+  --live: #ff3b4e;
+
+  --glow-blue: 0 0 24px rgb(31 94 255 / 0.55), 0 0 64px rgb(31 94 255 / 0.25);
+  --glow-orange: 0 0 24px rgb(255 122 26 / 0.55), 0 0 64px rgb(255 122 26 / 0.25);
+  --glass: rgb(18 26 51 / 0.55);
+
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f4f6fc;
+  --surface-1: #ffffff;
+  --surface-2: #eef1fa;
+  --surface-3: #e1e6f5;
+  --border: rgb(20 34 80 / 0.12);
+  --border-strong: rgb(20 34 80 / 0.24);
+
+  --text: #0a1024;
+  --text-muted: #3d4766;
+  --text-subtle: #5b6585;
+
+  --primary: #1748d6;
+  --accent: #c2510a;
+  --accent-fg: #ffffff;
+  --live: #d4142a;
+
+  --glow-blue: 0 8px 24px rgb(23 72 214 / 0.22);
+  --glow-orange: 0 8px 24px rgb(194 81 10 / 0.22);
+  --glass: rgb(255 255 255 / 0.7);
+
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-subtle: var(--text-subtle);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-live: var(--live);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-orange: var(--brand-orange);
+
+  --font-display: var(--font-sora);
+  --font-sans: var(--font-inter);
+
+  --shadow-glow-blue: var(--glow-blue);
+  --shadow-glow-orange: var(--glow-orange);
+
+  --animate-live-pulse: live-pulse 1.6s ease-in-out infinite;
+  --animate-aurora: aurora 22s ease-in-out infinite alternate;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
   }
 }
 
+@keyframes aurora {
+  0% {
+    transform: translate3d(-6%, -4%, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    transform: translate3d(6%, 4%, 0) rotate(12deg) scale(1.15);
+  }
+}
+
+html {
+  /* Corpo mínimo de 18px para o público 40+. */
+  font-size: 112.5%;
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-sora), system-ui, sans-serif;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
