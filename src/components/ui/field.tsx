@@ -3,7 +3,7 @@ import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 const control =
-  "w-full rounded-2xl border border-border-strong bg-surface-1 px-4 text-lg text-text placeholder:text-subtle transition-colors focus:border-accent focus:outline-none focus-visible:outline-none focus:ring-4 focus:ring-accent/20";
+  "w-full rounded-md border border-border-strong bg-white px-4 text-lg text-text placeholder:text-subtle focus:border-primary focus:outline-none focus:ring-3 focus:ring-primary/20";
 
 type FieldProps = { label: string; hint?: ReactNode };
 
@@ -14,7 +14,7 @@ export function Input({ label, hint, className, ...props }: FieldProps & Compone
       <label htmlFor={id} className="block font-semibold">
         {label}
       </label>
-      <input id={id} className={cn(control, "min-h-14", className)} {...props} />
+      <input id={id} className={cn(control, "min-h-13", className)} {...props} />
       {hint && <p className="text-subtle text-sm">{hint}</p>}
     </div>
   );

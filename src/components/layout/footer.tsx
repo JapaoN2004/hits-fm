@@ -1,44 +1,48 @@
-import { Mail, Phone, Smartphone } from "lucide-react";
+import { Clock, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { FacebookIcon, InstagramIcon, WhatsappIcon } from "@/components/icons/social";
 import { Container } from "@/components/ui/container";
 import { mainNav, secondaryNav, site, whatsappLink } from "@/lib/site";
 import { Logo } from "./logo";
 
-const linkClass = "text-muted transition-colors hover:text-accent";
+const linkClass = "text-white/80 hover:text-accent";
+const headingClass =
+  "font-display mb-4 text-base font-extrabold uppercase tracking-wide text-white";
+const socialClass =
+  "grid size-12 place-items-center rounded-full bg-white/10 hover:bg-accent hover:text-accent-fg";
 
 export function Footer() {
   return (
-    <footer className="border-border bg-surface-1/60 mt-auto border-t">
-      <Container className="grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="bg-primary-dark mt-auto text-white">
+      <Container className="grid gap-10 py-14 md:grid-cols-3">
         <div className="space-y-4">
-          <Logo />
-          <p className="text-muted">{site.tagline}</p>
+          <Logo light />
+          <p className="text-white/80">{site.tagline}</p>
           <div className="flex gap-2">
-            <a
-              href={site.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram da Hits FM"
-              className="border-border hover:border-accent hover:text-accent grid size-12 place-items-center rounded-full border"
-            >
-              <InstagramIcon className="size-5" />
-            </a>
             <a
               href={site.social.facebook}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook da Hits FM"
-              className="border-border hover:border-accent hover:text-accent grid size-12 place-items-center rounded-full border"
+              className={socialClass}
             >
               <FacebookIcon className="size-5" />
+            </a>
+            <a
+              href={site.social.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram da Hits FM"
+              className={socialClass}
+            >
+              <InstagramIcon className="size-5" />
             </a>
             <a
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp da Hits FM"
-              className="border-border hover:border-accent hover:text-accent grid size-12 place-items-center rounded-full border"
+              className={socialClass}
             >
               <WhatsappIcon className="size-5" />
             </a>
@@ -46,8 +50,8 @@ export function Footer() {
         </div>
 
         <nav aria-label="Rodapé">
-          <h2 className="mb-4 text-lg font-bold tracking-normal">A rádio</h2>
-          <ul className="space-y-2.5">
+          <h2 className={headingClass}>Navegue</h2>
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
             {[...mainNav.slice(1), ...secondaryNav].map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className={linkClass}>
@@ -59,7 +63,7 @@ export function Footer() {
         </nav>
 
         <div>
-          <h2 className="mb-4 text-lg font-bold tracking-normal">Comercial</h2>
+          <h2 className={headingClass}>Comercial</h2>
           <ul className="space-y-3">
             <li>
               <a
@@ -79,42 +83,15 @@ export function Footer() {
                 <Mail className="size-5 shrink-0" /> {site.contact.email}
               </a>
             </li>
-            <li className="text-subtle">{site.contact.hours}</li>
-          </ul>
-        </div>
-
-        <div>
-          <h2 className="mb-4 text-lg font-bold tracking-normal">Baixe o app</h2>
-          <ul className="space-y-3">
-            <li>
-              <a
-                href={site.apps.android}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${linkClass} inline-flex items-center gap-2`}
-              >
-                <Smartphone className="size-5" /> Google Play
-              </a>
-            </li>
-            <li>
-              <a
-                href={site.apps.ios}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${linkClass} inline-flex items-center gap-2`}
-              >
-                <Smartphone className="size-5" /> App Store
-              </a>
+            <li className="inline-flex items-center gap-2 text-white/80">
+              <Clock className="size-5" /> {site.contact.hours}
             </li>
           </ul>
         </div>
       </Container>
-      <div className="border-border border-t">
-        <Container className="text-subtle flex flex-wrap justify-between gap-2 py-6 text-sm">
-          <p>
-            © {new Date().getFullYear()} {site.name} · {site.city}
-          </p>
-          <p>Ouça ao vivo, 24 horas por dia.</p>
+      <div className="bg-black/20">
+        <Container className="py-5 text-center text-sm text-white/70">
+          © {new Date().getFullYear()} {site.name} · {site.city}. Todos os direitos reservados.
         </Container>
       </div>
     </footer>

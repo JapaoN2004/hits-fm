@@ -4,10 +4,10 @@ import { cn } from "@/lib/utils";
 type Tone = "neutral" | "primary" | "accent" | "live";
 
 const tones: Record<Tone, string> = {
-  neutral: "bg-surface-2 text-muted border-border",
-  primary: "bg-primary/15 text-text border-primary/40",
-  accent: "bg-accent/15 text-text border-accent/50",
-  live: "bg-live/15 text-text border-live/50",
+  neutral: "bg-surface-2 text-muted",
+  primary: "bg-primary text-primary-fg",
+  accent: "bg-accent text-accent-fg",
+  live: "bg-live text-white",
 };
 
 export function Badge({
@@ -18,7 +18,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-semibold",
+        "font-display inline-flex items-center gap-1.5 rounded px-2.5 py-1 text-xs font-bold tracking-wider uppercase",
         tones[tone],
         className,
       )}
@@ -29,8 +29,8 @@ export function Badge({
 
 export function LiveBadge({ className }: { className?: string }) {
   return (
-    <Badge tone="live" className={cn("tracking-wider uppercase", className)}>
-      <span aria-hidden className="bg-live animate-live-pulse size-2.5 rounded-full" />
+    <Badge tone="live" className={className}>
+      <span aria-hidden className="animate-live-pulse size-2 rounded-full bg-white" />
       Ao vivo
     </Badge>
   );

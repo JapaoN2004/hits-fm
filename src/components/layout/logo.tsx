@@ -1,28 +1,24 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-// TODO(cliente): trocar pelo logo oficial em SVG/PNG de alta resolução.
-export function Logo({ className }: { className?: string }) {
+// TODO(cliente): trocar pelo arquivo oficial do logo (PNG/SVG em alta).
+export function Logo({ className, light }: { className?: string; light?: boolean }) {
   return (
     <Link
       href="/"
       aria-label="Hits FM 93.5 – página inicial"
-      className={cn("group inline-flex items-center gap-2.5", className)}
+      className={cn("font-display inline-flex items-baseline gap-1.5 leading-none", className)}
     >
       <span
-        aria-hidden
-        className="from-brand-blue to-brand-orange font-display shadow-glow-blue group-hover:shadow-glow-orange grid size-11 place-items-center rounded-2xl bg-linear-135 text-lg font-extrabold text-white transition-shadow"
+        className={cn(
+          "text-4xl font-black tracking-tight italic",
+          light ? "text-white" : "text-primary",
+        )}
       >
-        H
+        HITS
       </span>
-      <span className="font-display leading-none">
-        <span className="block text-xl font-extrabold tracking-tight">
-          HITS <span className="text-accent">FM</span>
-        </span>
-        <span className="text-muted block text-xs font-semibold tracking-[0.2em] whitespace-nowrap sm:tracking-[0.3em]">
-          93.5 · PALMAS
-        </span>
-      </span>
+      <span className="text-accent text-2xl font-extrabold italic">FM</span>
+      <span className={cn("text-xl font-bold", light ? "text-white/80" : "text-muted")}>93.5</span>
     </Link>
   );
 }

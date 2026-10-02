@@ -10,11 +10,12 @@ Site novo da rádio Hits FM 93.5 (Palmas/TO). Especificação completa em `PROMP
 - `motion` (Framer Motion) para animações; Supabase a partir da fase 4; deploy na Vercel.
 
 ## Design
-- Conceito "estúdio de rádio à noite": tema escuro padrão, claro via `<html data-theme="light">`.
-- Use só os tokens (`bg-surface-1`, `text-muted`, `text-accent`, `shadow-glow-blue`...), nunca cores soltas.
+- O Gabriel rejeitou um visual "futurista/IA" (fundo escuro, aurora, vidro, 3D). Seguir a identidade do site atual: fundo claro, azul e laranja chapados, barra de menu azul, títulos em caixa alta com traço laranja. Nada de gradientes, brilhos neon ou glassmorphism.
+- Use só os tokens de `globals.css` (`bg-primary`, `bg-primary-dark`, `bg-accent`, `bg-surface-2`, `text-muted`...), nunca cores soltas.
 - Público 40+: corpo mínimo 18px (o `html` já está em 112.5%), contraste AA, alvos de toque ≥ 48px (`min-h-12`).
-- Todo efeito respeita `prefers-reduced-motion` (`useReducedMotion` no client; CSS global já corta animações).
-- Títulos em Sora (`font-display`), texto em Inter (`font-sans`).
+- Respeite `prefers-reduced-motion`.
+- Títulos em Montserrat (`font-display`), texto em Open Sans (`font-sans`).
+- Dados de exemplo tipados em `src/data/` (mesmo formato do banco futuro).
 
 ## Código
 - Componentes base em `src/components/ui`, estrutura do site em `src/components/layout`.

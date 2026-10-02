@@ -3,17 +3,19 @@
 import { Menu, Radio, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { FacebookIcon, InstagramIcon, WhatsappIcon } from "@/components/icons/social";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { mainNav, secondaryNav } from "@/lib/site";
+import { mainNav, site, whatsappLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
-import { ThemeToggle } from "./theme-toggle";
 
 function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
+
+const socialClass = "grid size-10 place-items-center rounded-full hover:bg-white/15";
 
 export function Header() {
   const pathname = usePathname();
@@ -21,103 +23,107 @@ export function Header() {
   const [openedAt, setOpenedAt] = useState(pathname);
 
   // Fecha o menu ao trocar de página.
-  if (open && openedAt !== pathname) {
-    setOpen(false);
-  }
-
-  useEffect(() => {
-    if (!open) return;
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
+  if (open && openedAt !== pathname) setOpen(false);
 
   return (
-    <>
-      <header className="border-border sticky top-0 z-40 border-b bg-(--glass) backdrop-blur-xl">
-        <a
-          href="#conteudo"
-          className="focus:bg-accent focus:text-accent-fg sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:px-5 focus:py-3"
-        >
-          Pular para o conteúdo
-        </a>
-        <Container className="flex h-20 items-center justify-between gap-4">
-          <Logo />
+    <header className="bg-white shadow-sm">
+      <a
+        href="#conteudo"
+        className="focus:bg-accent focus:text-accent-fg sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:px-4 focus:py-2"
+      >
+        Pular para o conteúdo
+      </a>
 
-          <nav aria-label="Principal" className="hidden xl:block">
-            <ul className="flex items-center gap-1">
-              {mainNav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                    className="text-muted hover:text-text aria-[current=page]:text-text aria-[current=page]:after:bg-accent aria-[current=page]:after:shadow-glow-orange relative rounded-full px-4 py-3 text-base font-medium transition-colors aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-4 aria-[current=page]:after:-bottom-0.5 aria-[current=page]:after:h-0.5 aria-[current=page]:after:rounded-full"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="flex items-center gap-1">
-            <ThemeToggle />
-            <ButtonLink href="/ao-vivo" variant="accent" className="hidden sm:inline-flex">
-              <Radio /> Ouvir ao vivo
-            </ButtonLink>
-            <button
-              type="button"
-              className="hover:bg-surface-2 grid size-12 place-items-center rounded-full xl:hidden"
-              aria-label={open ? "Fechar menu" : "Abrir menu"}
-              aria-expanded={open}
-              aria-controls="menu-mobile"
-              onClick={() => {
-                setOpenedAt(pathname);
-                setOpen((v) => !v);
-              }}
+      {/* Barra superior */}
+      <div className="bg-primary-dark text-white">
+        <Container className="flex h-11 items-center justify-between text-sm">
+          <p className="hidden sm:block">{site.tagline}</p>
+          <p className="sm:hidden">93.5 · Palmas</p>
+          <div className="flex items-center">
+            <a
+              href={site.social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className={socialClass}
             >
-              {open ? <X className="size-6" /> : <Menu className="size-6" />}
-            </button>
+              <FacebookIcon className="size-4" />
+            </a>
+            <a
+              href={site.social.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className={socialClass}
+            >
+              <InstagramIcon className="size-4" />
+            </a>
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className={socialClass}
+            >
+              <WhatsappIcon className="size-4" />
+            </a>
           </div>
         </Container>
-      </header>
-
-      {/* Fora do <header>: o backdrop-blur dele prenderia o position:fixed. */}
-      <div
-        id="menu-mobile"
-        hidden={!open}
-        className="bg-bg/95 fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto backdrop-blur-xl xl:hidden"
-      >
-        <Container className="py-8">
-          <nav aria-label="Menu">
-            <ul className="space-y-1">
-              {[...mainNav, ...secondaryNav].map((item, i) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                    style={{ animationDelay: `${i * 30}ms` }}
-                    className={cn(
-                      "font-display hover:bg-surface-2 flex min-h-14 items-center rounded-2xl px-4 text-2xl font-semibold transition-colors",
-                      "aria-[current=page]:text-accent",
-                    )}
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <ButtonLink href="/ao-vivo" variant="accent" size="lg" className="mt-8 w-full">
-            <Radio /> Ouvir ao vivo
-          </ButtonLink>
-        </Container>
       </div>
-    </>
+
+      {/* Logo */}
+      <Container className="flex h-24 items-center justify-between xl:relative xl:justify-center">
+        <Logo />
+        <ButtonLink
+          href="/ao-vivo"
+          variant="accent"
+          className="absolute right-8 hidden xl:inline-flex"
+        >
+          <Radio /> Ouvir ao vivo
+        </ButtonLink>
+        <button
+          type="button"
+          className="text-primary hover:bg-surface-2 grid size-12 place-items-center rounded-md xl:hidden"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={open}
+          aria-controls="menu-principal"
+          onClick={() => {
+            setOpenedAt(pathname);
+            setOpen((v) => !v);
+          }}
+        >
+          {open ? <X className="size-7" /> : <Menu className="size-7" />}
+        </button>
+      </Container>
+
+      {/* Menu */}
+      <nav
+        id="menu-principal"
+        aria-label="Principal"
+        className={cn("bg-primary text-white xl:block", open ? "block" : "hidden")}
+      >
+        <Container className="px-0 sm:px-0 xl:px-8">
+          <ul className="flex flex-col xl:flex-row xl:justify-center">
+            {mainNav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive(pathname, item.href) ? "page" : undefined}
+                  className="font-display hover:bg-primary-dark aria-[current=page]:bg-primary-dark aria-[current=page]:text-accent flex min-h-13 items-center border-b border-white/10 px-6 text-[0.95rem] font-bold tracking-wide uppercase xl:border-b-0 xl:px-4 xl:aria-[current=page]:text-white xl:aria-[current=page]:shadow-[inset_0_-4px_0_var(--accent)]"
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="p-4 xl:hidden">
+            <ButtonLink href="/ao-vivo" variant="accent" size="lg" className="w-full">
+              <Radio /> Ouvir ao vivo
+            </ButtonLink>
+          </div>
+        </Container>
+      </nav>
+    </header>
   );
 }

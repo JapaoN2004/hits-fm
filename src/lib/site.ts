@@ -29,18 +29,19 @@ export const site = {
 export type NavItem = { href: string; label: string };
 
 export const mainNav: NavItem[] = [
-  { href: "/", label: "Início" },
+  { href: "/", label: "Home" },
   { href: "/ao-vivo", label: "Ao vivo" },
   { href: "/programacao", label: "Programação" },
-  { href: "/locutores", label: "Locutores" },
+  { href: "/sobre", label: "A Hits" },
   { href: "/noticias", label: "Hits News" },
-  { href: "/promocoes", label: "Promoções" },
+  { href: "/promocoes", label: "Promoção" },
+  { href: "/locutores", label: "Locutores" },
   { href: "/tv-cristal", label: "TV Cristal" },
+  { href: "/contato", label: "Contato" },
 ];
 
 export const secondaryNav: NavItem[] = [
   { href: "/pedir-musica", label: "Pedir música" },
-  { href: "/sobre", label: "A Hits" },
   { href: "/anuncie", label: "Anuncie" },
 ];
 
