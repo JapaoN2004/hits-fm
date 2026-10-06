@@ -8,11 +8,12 @@ import { ScheduleTabs } from "@/components/home/schedule-tabs";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { hosts } from "@/data/hosts";
-import { news } from "@/data/news";
+import { getHosts, latestNews } from "@/lib/content";
 import { site } from "@/lib/site";
 
-export default function Home() {
+export default async function Home() {
+  const [hosts, news] = await Promise.all([getHosts(), latestNews(6)]);
+
   return (
     <>
       <HeroSlider />
@@ -86,7 +87,7 @@ export default function Home() {
         }
       >
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {news.slice(0, 6).map((post) => (
+          {news.map((post) => (
             <li key={post.id}>
               <NewsCard post={post} />
             </li>
@@ -103,7 +104,7 @@ export default function Home() {
         }
       >
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {hosts.map((h) => (
+          {hosts.slice(0, 4).map((h) => (
             <li key={h.id}>
               <HostCard host={h} />
             </li>

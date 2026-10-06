@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import type { NowPlaying } from "@/lib/now-playing";
+import { useGrid } from "@/components/schedule/schedule-provider";
 import { onAirNow } from "@/lib/schedule";
 import { site } from "@/lib/site";
 import { usePalmasNow } from "@/lib/use-palmas-now";
@@ -47,8 +48,9 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const [muted, setMuted] = useState(false);
   const [nowPlaying, setNowPlaying] = useState<NowPlaying | null>(null);
 
+  const grid = useGrid();
   const now = usePalmasNow();
-  const programName = (now && onAirNow(now).current?.program?.name) || "Programação musical";
+  const programName = (now && onAirNow(grid, now).current?.program?.name) || "Programação musical";
 
   // Conecta (ou reconecta) ao stream. O parâmetro evita reaproveitar um buffer velho.
   const connect = useCallback(() => {

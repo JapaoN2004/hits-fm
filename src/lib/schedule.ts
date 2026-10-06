@@ -1,6 +1,11 @@
-import { programById, schedule } from "@/data/schedule";
-import type { ScheduleSlot, Weekday } from "@/data/types";
+import type { Grid, ScheduleSlot, Weekday } from "@/data/types";
 import { site } from "./site";
+
+export const dayNames = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+
+export function programById(grid: Grid, id: string) {
+  return grid.programs.find((p) => p.id === id);
+}
 
 function toMinutes(hhmm: string) {
   const [h, m] = hhmm.split(":").map(Number);
@@ -24,8 +29,8 @@ export function palmasNow(date = new Date()) {
   };
 }
 
-export function slotsForDay(day: Weekday) {
-  return schedule
+export function slotsForDay(grid: Grid, day: Weekday) {
+  return grid.slots
     .filter((s) => s.day === day)
     .sort((a, b) => toMinutes(a.start) - toMinutes(b.start));
 }
@@ -39,13 +44,13 @@ export function isLive(slot: ScheduleSlot, now = palmasNow()) {
 }
 
 // Programa no ar agora e o próximo do mesmo dia (sem programa = programação musical).
-export function onAirNow(now = palmasNow()) {
-  const today = slotsForDay(now.day);
+export function onAirNow(grid: Grid, now = palmasNow()) {
+  const today = slotsForDay(grid, now.day);
   const current = today.find((s) => isLive(s, now));
   const next = today.find((s) => toMinutes(s.start) > now.minutes);
   return {
-    current: current && { slot: current, program: programById(current.programId) },
-    next: next && { slot: next, program: programById(next.programId) },
+    current: current && { slot: current, program: programById(grid, current.programId) },
+    next: next && { slot: next, program: programById(grid, next.programId) },
   };
 }
 

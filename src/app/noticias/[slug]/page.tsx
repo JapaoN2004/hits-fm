@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowLeft, Clock, Newspaper } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { WhatsappIcon } from "@/components/icons/social";
@@ -7,18 +8,19 @@ import { NewsCard } from "@/components/news/news-card";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { news } from "@/data/news";
-import { formatDate, getNews, readingTime, relatedNews } from "@/lib/news";
+import { getNews, latestNews, relatedNews } from "@/lib/content";
+import { formatDate, readingTime } from "@/lib/news";
 import { site } from "@/lib/site";
 
-export function generateStaticParams() {
-  return news.map((p) => ({ slug: p.slug }));
+// Pré-gera as mais recentes; as outras são geradas no primeiro acesso.
+export async function generateStaticParams() {
+  return (await latestNews(30)).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<"/noticias/[slug]">): Promise<Metadata> {
-  const post = getNews((await params).slug);
+  const post = await getNews((await params).slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -28,15 +30,16 @@ export async function generateMetadata({
       title: post.title,
       description: post.excerpt,
       publishedTime: post.publishedAt,
+      images: post.cover ? [post.cover] : undefined,
     },
   };
 }
 
 export default async function NoticiaPage({ params }: PageProps<"/noticias/[slug]">) {
   const { slug } = await params;
-  const post = getNews(slug);
+  const post = await getNews(slug);
   if (!post) notFound();
-  const related = relatedNews(slug);
+  const related = await relatedNews(post);
   const shareText = encodeURIComponent(`${post.title} – ${site.shortName}`);
 
   const jsonLd = {
@@ -68,21 +71,33 @@ export default async function NoticiaPage({ params }: PageProps<"/noticias/[slug
               {formatDate(post.publishedAt)}
             </time>
             <span className="text-subtle inline-flex items-center gap-1">
-              <Clock className="size-4" aria-hidden /> {readingTime(post.content)} min de leitura
+              <Clock className="size-4" aria-hidden /> {readingTime(post.contentHtml)} min de
+              leitura
             </span>
           </div>
           <h1 className="text-3xl leading-tight font-extrabold sm:text-4xl">{post.title}</h1>
           <p className="text-muted mt-4 text-xl">{post.excerpt}</p>
 
-          <div className="bg-surface-3 text-subtle my-8 grid aspect-video place-items-center rounded-md">
-            <Newspaper className="size-14" aria-hidden />
+          <div className="bg-surface-3 text-subtle relative my-8 grid aspect-video place-items-center overflow-hidden rounded-md">
+            {post.cover ? (
+              <Image
+                src={post.cover}
+                alt=""
+                fill
+                priority
+                sizes="(min-width: 768px) 768px, 100vw"
+                className="object-cover"
+              />
+            ) : (
+              <Newspaper className="size-14" aria-hidden />
+            )}
           </div>
 
-          <div className="space-y-5 text-[1.1rem] leading-relaxed">
-            {post.content.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
+          {/* contentHtml já sai sanitizado de src/lib/content.ts (allowlist de tags). */}
+          <div
+            className="news-body text-[1.1rem] leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+          />
 
           <a
             href={`https://wa.me/?text=${shareText}%20${encodeURIComponent(`${site.url}/noticias/${post.slug}`)}`}

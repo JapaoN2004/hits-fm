@@ -1,6 +1,7 @@
 "use client";
 
 import { PlayButton } from "@/components/player/play-button";
+import { useGrid } from "@/components/schedule/schedule-provider";
 import { LiveBadge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
 import { formatHour, onAirNow } from "@/lib/schedule";
@@ -8,8 +9,9 @@ import { usePalmasNow } from "@/lib/use-palmas-now";
 
 // Calculado no navegador para refletir a hora real de Palmas.
 export function OnAirBar() {
+  const grid = useGrid();
   const now = usePalmasNow();
-  const onAir = now && onAirNow(now);
+  const onAir = now && onAirNow(grid, now);
 
   return (
     <div className="border-border bg-surface-2 border-b">

@@ -22,6 +22,7 @@ export type Host = {
   name: string;
   bio: string;
   photo?: string;
+  instagram?: string;
 };
 
 export type NewsPost = {
@@ -32,7 +33,7 @@ export type NewsPost = {
   category: string;
   publishedAt: string; // ISO
   cover?: string;
-  content: string[]; // parágrafos (o HTML sanitizado do banco entra na fase 4)
+  contentHtml: string; // HTML sanitizado (allowlist em src/lib/sanitize.ts)
 };
 
 export type Promotion = {
@@ -42,5 +43,12 @@ export type Promotion = {
   summary: string;
   howTo: string[];
   rules: string[];
+  cover?: string;
   endsAt: string; // ISO
+};
+
+// Grade completa: programas e horários (vem do banco no layout e vai para o navegador).
+export type Grid = {
+  programs: Program[];
+  slots: ScheduleSlot[];
 };

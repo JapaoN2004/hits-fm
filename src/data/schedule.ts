@@ -33,9 +33,3 @@ export const schedule: ScheduleSlot[] = [
   { programId: "via-brasil", day: 0, start: "13:00", end: "14:00" },
   { programId: "especiais", day: 0, start: "17:00", end: "18:00" },
 ];
-
-export const dayNames = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-
-export function programById(id: string) {
-  return programs.find((p) => p.id === id);
-}

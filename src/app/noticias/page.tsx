@@ -5,7 +5,7 @@ import { NewsCard } from "@/components/news/news-card";
 import { buttonClasses } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 import { Section } from "@/components/ui/section";
-import { categories, listNews } from "@/lib/news";
+import { listNews, newsCategories } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -21,11 +21,14 @@ export default async function NoticiasPage({ searchParams }: PageProps<"/noticia
   const sp = await searchParams;
   const q = first(sp.q)?.trim() || undefined;
   const category = first(sp.categoria) || undefined;
-  const { items, page, pages, total } = listNews({
-    q,
-    category,
-    page: Number(first(sp.pagina)) || 1,
-  });
+  const [{ items, page, pages, total }, categories] = await Promise.all([
+    listNews({
+      q,
+      category,
+      page: Number(first(sp.pagina)) || 1,
+    }),
+    newsCategories(),
+  ]);
 
   const href = (p: { categoria?: string; pagina?: number }) => {
     const params = new URLSearchParams();
@@ -72,7 +75,7 @@ export default async function NoticiasPage({ searchParams }: PageProps<"/noticia
           >
             Todas
           </Link>
-          {categories().map((c) => (
+          {categories.map((c) => (
             <Link
               key={c}
               href={href({ categoria: c })}

@@ -1,20 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { dayNames, programById } from "@/data/schedule";
+import { useGrid } from "@/components/schedule/schedule-provider";
 import type { Weekday } from "@/data/types";
-import { formatHour, isLive, slotsForDay } from "@/lib/schedule";
+import { dayNames, formatHour, isLive, programById, slotsForDay } from "@/lib/schedule";
 import { usePalmasNow } from "@/lib/use-palmas-now";
 import { cn } from "@/lib/utils";
 
 const order: Weekday[] = [1, 2, 3, 4, 5, 6, 0];
 
 export function ScheduleTabs() {
+  const grid = useGrid();
   const now = usePalmasNow();
   const [selected, setDay] = useState<Weekday | null>(null);
   const day = selected ?? now?.day ?? 1;
 
-  const slots = slotsForDay(day);
+  const slots = slotsForDay(grid, day);
 
   return (
     <div>
@@ -57,7 +58,7 @@ export function ScheduleTabs() {
               <span className="font-display text-primary w-36 font-extrabold">
                 {formatHour(s.start)} – {formatHour(s.end)}
               </span>
-              <span className="text-lg font-semibold">{programById(s.programId)?.name}</span>
+              <span className="text-lg font-semibold">{programById(grid, s.programId)?.name}</span>
               {live && (
                 <span className="bg-live rounded px-2 py-0.5 text-xs font-bold text-white uppercase">
                   No ar

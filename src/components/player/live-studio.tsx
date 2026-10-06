@@ -1,6 +1,7 @@
 "use client";
 
 import { Clock, ListMusic, Smartphone } from "lucide-react";
+import { useGrid } from "@/components/schedule/schedule-provider";
 import { WhatsappIcon } from "@/components/icons/social";
 import { LiveBadge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
@@ -21,8 +22,9 @@ function clock(minutes: number) {
 // Versão grande do player (página Ao Vivo). Usa o mesmo áudio do player do rodapé.
 export function LiveStudio() {
   const { status, nowPlaying, programName } = usePlayer();
+  const grid = useGrid();
   const now = usePalmasNow();
-  const next = now ? onAirNow(now).next : undefined;
+  const next = now ? onAirNow(grid, now).next : undefined;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_360px]">

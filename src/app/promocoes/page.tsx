@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 import { Section } from "@/components/ui/section";
-import { promotions } from "@/data/promotions";
+import { getPromotions } from "@/lib/content";
 import { formatDate } from "@/lib/news";
 import { whatsappLink } from "@/lib/site";
 
@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 // Recalcula a cada hora para mover promoções vencidas para "encerradas".
 export const revalidate = 3600;
 
-export default function PromocoesPage() {
+export default async function PromocoesPage() {
+  const promotions = await getPromotions();
   const now = new Date().toISOString();
   const active = promotions.filter((p) => p.endsAt >= now);
   const ended = promotions.filter((p) => p.endsAt < now);

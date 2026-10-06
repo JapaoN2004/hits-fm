@@ -5,11 +5,13 @@ import { useState, type FormEvent } from "react";
 import { WhatsappIcon } from "@/components/icons/social";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea } from "@/components/ui/field";
+import { saveSongRequest } from "@/app/pedir-musica/actions";
 import { whatsappLink } from "@/lib/site";
 
 type Fields = { nome: string; musica: string; artista: string; cidade: string; recado: string };
 
-// TODO(fase 4): gravar o pedido no Supabase (com limite de envios por IP) antes de abrir o WhatsApp.
+// Abre o WhatsApp na hora (precisa ser no clique, senão o navegador bloqueia a janela) e grava
+// o pedido no banco em paralelo, para a equipe ver no painel.
 export function SongRequestForm() {
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
@@ -25,7 +27,7 @@ export function SongRequestForm() {
         String(data.get(k) ?? "").trim(),
       ]),
     ) as Fields;
-    if (!f.nome || !f.musica) {
+    if (f.nome.length < 2 || !f.musica) {
       setError("Preencha seu nome e a música.");
       return;
     }
@@ -40,6 +42,8 @@ export function SongRequestForm() {
       .filter(Boolean)
       .join("\n");
     window.open(whatsappLink(msg), "_blank", "noopener");
+    // Falha ao gravar não impede o pedido: ele já seguiu pelo WhatsApp.
+    saveSongRequest({ ...f, site: "" }).catch(() => {});
     setSent(true);
     e.currentTarget.reset();
   }
