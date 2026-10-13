@@ -52,7 +52,7 @@ export function WhyHits() {
   const Icon = chapter.icon;
 
   return (
-    <section ref={ref} aria-labelledby="por-que-ouvir" className="bg-dots relative h-[260vh]">
+    <section ref={ref} aria-labelledby="por-que-ouvir" className="bg-locucao relative h-[260vh]">
       <div className="sticky top-0 flex h-dvh items-center pb-24">
         <Container className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
           <div>

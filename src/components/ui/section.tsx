@@ -7,14 +7,14 @@ type SectionProps = Omit<ComponentProps<"section">, "title"> & {
   title?: ReactNode;
   description?: ReactNode;
   action?: ReactNode;
-  // Fundo da seção: branco, pontinhos azuis ou azul chapado com corte diagonal.
+  // Fundo da seção: branco, desenhos de locução ou azul com corte diagonal.
   tone?: "white" | "dots" | "blue";
 };
 
 const tones = {
   white: "bg-white",
-  dots: "bg-dots",
-  blue: "bg-primary edge-diagonal py-24 text-white sm:py-28",
+  dots: "bg-locucao",
+  blue: "bg-locucao-azul edge-diagonal py-24 text-white sm:py-28",
 };
 
 // Seção com o título no estilo do site atual: caixa alta e um traço laranja embaixo.

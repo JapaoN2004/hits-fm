@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { StoreBadges } from "@/components/app/store-badges";
+import { StudioMic } from "@/components/home/studio-mic";
 import { HeaderListenButton } from "@/components/player/header-listen-button";
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
@@ -50,6 +51,7 @@ export function HeroSlider() {
   const { scrollY } = useScroll();
   const bandsY = useTransform(scrollY, [0, 600], [0, reduce ? 0 : 160]);
   const textY = useTransform(scrollY, [0, 600], [0, reduce ? 0 : -60]);
+  const micY = useTransform(scrollY, [0, 600], [0, reduce ? 0 : 80]);
 
   useEffect(() => {
     if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -63,7 +65,7 @@ export function HeroSlider() {
     <section
       aria-roledescription="carrossel"
       aria-label="Destaques"
-      className="bg-primary relative overflow-hidden text-white"
+      className="bg-locucao-azul relative overflow-hidden text-white"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -93,6 +95,20 @@ export function HeroSlider() {
           <div className="bg-accent absolute inset-y-0 right-0 hidden w-1/3 translate-x-24 skew-x-[-12deg] md:block" />
           <div className="bg-primary-dark absolute inset-y-0 right-0 hidden w-1/3 translate-x-40 skew-x-[-12deg] md:block" />
           <div className="bg-accent absolute inset-y-0 right-0 w-10 translate-x-4 skew-x-[-12deg] md:hidden" />
+        </motion.div>
+      )}
+      {!heroPhoto && (
+        <motion.div
+          aria-hidden
+          style={{ y: micY }}
+          className="absolute top-1/2 right-[8%] hidden -translate-y-1/2 lg:block xl:right-[12%]"
+        >
+          <motion.div
+            animate={reduce ? undefined : { y: [0, -10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <StudioMic className="h-[360px] w-auto drop-shadow-xl" />
+          </motion.div>
         </motion.div>
       )}
 
