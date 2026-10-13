@@ -6,7 +6,7 @@ export function PageHeader({ title, description }: { title: string; description?
   return (
     <div className="bg-primary text-white">
       <Container className="py-10 sm:py-14">
-        <h1 className="text-3xl font-black uppercase italic sm:text-5xl">{title}</h1>
+        <h1 className="text-3xl font-black uppercase italic sm:text-4xl">{title}</h1>
         <span aria-hidden className="bg-accent mt-4 block h-1 w-16" />
         {description && <p className="mt-4 max-w-2xl text-lg text-white/90">{description}</p>}
       </Container>

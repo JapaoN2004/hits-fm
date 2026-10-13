@@ -3,6 +3,7 @@
 import { ChevronLeft, ChevronRight, Smartphone } from "lucide-react";
 import { HeaderListenButton } from "@/components/player/header-listen-button";
 import Image from "next/image";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useState } from "react";
 import { WhatsappIcon } from "@/components/icons/social";
 import { ButtonLink } from "@/components/ui/button";
@@ -52,6 +53,11 @@ const slides = [
 export function HeroSlider() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  // Parallax: as faixas laranja e azul descem mais devagar que a página ao rolar.
+  const reduce = useReducedMotion();
+  const { scrollY } = useScroll();
+  const bandsY = useTransform(scrollY, [0, 600], [0, reduce ? 0 : 160]);
+  const textY = useTransform(scrollY, [0, 600], [0, reduce ? 0 : -60]);
 
   useEffect(() => {
     if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -87,33 +93,36 @@ export function HeroSlider() {
           />
         </>
       ) : (
-        <>
-          <div
-            aria-hidden
-            className="bg-accent absolute inset-y-0 right-0 hidden w-1/3 translate-x-24 skew-x-[-12deg] md:block"
-          />
-          <div
-            aria-hidden
-            className="bg-primary-dark absolute inset-y-0 right-0 hidden w-1/3 translate-x-40 skew-x-[-12deg] md:block"
-          />
-        </>
+        <motion.div
+          aria-hidden
+          style={{ y: bandsY }}
+          className="absolute -inset-y-24 right-0 w-full"
+        >
+          <div className="bg-accent absolute inset-y-0 right-0 hidden w-1/3 translate-x-24 skew-x-[-12deg] md:block" />
+          <div className="bg-primary-dark absolute inset-y-0 right-0 hidden w-1/3 translate-x-40 skew-x-[-12deg] md:block" />
+          <div className="bg-accent absolute inset-y-0 right-0 w-10 translate-x-4 skew-x-[-12deg] md:hidden" />
+        </motion.div>
       )}
 
       <Container className="relative">
-        {slides.map((s, i) => (
-          <div
-            key={s.title}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`${i + 1} de ${slides.length}`}
-            hidden={i !== index}
-            className="flex min-h-[420px] max-w-2xl flex-col items-start justify-center gap-6 pt-14 pb-28 sm:min-h-[460px]"
-          >
-            <h2 className="text-4xl font-black uppercase italic sm:text-6xl">{s.title}</h2>
-            <p className="text-lg text-white/90 sm:text-xl">{s.text}</p>
-            {s.cta}
-          </div>
-        ))}
+        <motion.div style={{ y: textY }}>
+          {slides.map((s, i) => (
+            <div
+              key={s.title}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} de ${slides.length}`}
+              hidden={i !== index}
+              className="animate-fade-up flex min-h-[420px] max-w-2xl flex-col items-start justify-center gap-6 pt-14 pb-28 sm:min-h-[460px]"
+            >
+              <h2 className="text-3xl font-black uppercase italic sm:text-5xl lg:text-6xl">
+                {s.title}
+              </h2>
+              <p className="text-lg text-white/90 sm:text-xl">{s.text}</p>
+              {s.cta}
+            </div>
+          ))}
+        </motion.div>
 
         <div className="absolute bottom-6 left-4 flex items-center gap-3 sm:left-6 lg:left-8">
           <button

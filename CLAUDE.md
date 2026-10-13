@@ -14,7 +14,8 @@ Site novo da rádio Hits FM 93.5 (Palmas/TO). Especificação completa em `PROMP
 
 - O Gabriel rejeitou um visual "futurista/IA" (fundo escuro, aurora, vidro, 3D). Seguir a identidade do site atual: fundo claro, azul e laranja chapados, barra de menu azul, títulos em caixa alta com traço laranja. Nada de gradientes, brilhos neon ou glassmorphism.
 - Use só os tokens de `globals.css` (`bg-primary`, `bg-primary-dark`, `bg-accent`, `bg-surface-2`, `text-muted`...), nunca cores soltas.
-- Público 40+: corpo mínimo 18px (o `html` já está em 112.5%), contraste AA, alvos de toque ≥ 48px (`min-h-12`).
+- Público 40+: corpo de 16px (o Gabriel achou 18px grande demais em 13/10; não reduza mais), contraste AA, alvos de toque ≥ 48px (`min-h-12`).
+- Home em estilo landing page: seções aparecem ao rolar (`Reveal`) e a faixa "Por que ouvir" troca de conteúdo conforme a rolagem. Animação só com `motion` e sempre com versão estática para `prefers-reduced-motion`.
 - Respeite `prefers-reduced-motion`.
 - Títulos em Montserrat (`font-display`), texto em Open Sans (`font-sans`).
 - Dados de exemplo tipados em `src/data/` (mesmo formato do banco).

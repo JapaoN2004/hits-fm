@@ -53,6 +53,14 @@
   --font-sans: var(--font-open-sans);
 
   --animate-live-pulse: live-pulse 1.6s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
 }
 
 @keyframes live-pulse {
@@ -66,8 +74,8 @@
 }
 
 html {
-  /* Corpo mínimo de 18px para o público 40+. */
-  font-size: 112.5%;
+  /* Corpo de 16px (pedido do Gabriel em 13/10: letras estavam grandes demais). */
+  font-size: 100%;
   scroll-behavior: smooth;
 }
 
@@ -103,6 +111,17 @@ h4 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Fundo de pontinhos azuis (padrão chapado, sem degradê) para seções de destaque. */
+.bg-dots {
+  background-color: var(--surface-2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='2' cy='2' r='1.6' fill='%230b4ea2' fill-opacity='0.13'/%3E%3C/svg%3E");
+}
+
+/* Corte diagonal no topo e na base, como as faixas do banner. */
+.edge-diagonal {
+  clip-path: polygon(0 3rem, 100% 0, 100% calc(100% - 3rem), 0 100%);
 }
 
 /* Equalizador do player: barras sobem e descem enquanto toca. */
