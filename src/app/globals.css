@@ -28,6 +28,8 @@
   --accent-fg: #1a0c00;
   --live: #e0202f;
   --whatsapp: #1f8f4e;
+  /* Selos das lojas de apps (preto, como os selos oficiais). */
+  --ink: #11151c;
 }
 
 @theme inline {
@@ -48,6 +50,7 @@
   --color-accent-fg: var(--accent-fg);
   --color-live: var(--live);
   --color-whatsapp: var(--whatsapp);
+  --color-ink: var(--ink);
 
   --font-display: var(--font-montserrat);
   --font-sans: var(--font-open-sans);

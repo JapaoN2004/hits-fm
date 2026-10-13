@@ -1,6 +1,7 @@
-import { ArrowRight, Gift, Smartphone } from "lucide-react";
+import { ArrowRight, Gift } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { AppPromo } from "@/components/app/app-promo";
 import { HostCard } from "@/components/hosts/host-card";
 import { NewsCard } from "@/components/news/news-card";
 import { HeroSlider } from "@/components/home/hero-slider";
@@ -8,7 +9,6 @@ import { OnAirBar } from "@/components/home/on-air-bar";
 import { ScheduleTabs } from "@/components/home/schedule-tabs";
 import { WhyHits } from "@/components/home/why-hits";
 import { ButtonLink } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { getHosts, latestNews } from "@/lib/content";
@@ -131,25 +131,7 @@ export default async function Home() {
         </ul>
       </Section>
 
-      <section className="bg-primary text-white">
-        <Container className="flex flex-col items-start gap-6 py-12 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-4">
-            <Smartphone className="text-accent size-12 shrink-0" aria-hidden />
-            <div>
-              <p className="font-display text-2xl font-black uppercase">Baixe o app da Hits</p>
-              <p className="text-white/85">A Hits FM no seu celular, onde você estiver.</p>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink href={site.apps.android} variant="light">
-              Google Play
-            </ButtonLink>
-            <ButtonLink href={site.apps.ios} variant="light">
-              App Store
-            </ButtonLink>
-          </div>
-        </Container>
-      </section>
+      <AppPromo />
     </>
   );
 }

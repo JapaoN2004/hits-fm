@@ -1,6 +1,7 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Smartphone } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { StoreBadges } from "@/components/app/store-badges";
 import { HeaderListenButton } from "@/components/player/header-listen-button";
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
@@ -8,7 +9,7 @@ import { useEffect, useState } from "react";
 import { WhatsappIcon } from "@/components/icons/social";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { site, whatsappLink } from "@/lib/site";
+import { whatsappLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 // Foto de fundo do banner (arquivo em /public). Com null, o banner fica só no azul.
@@ -22,18 +23,9 @@ const slides = [
     cta: <HeaderListenButton size="lg" />,
   },
   {
-    title: "Baixe o novo app da Hits",
+    title: "Novo app da Hits FM!",
     text: "Ouça a Hits FM no celular, onde estiver: no carro, no trabalho ou na academia.",
-    cta: (
-      <div className="flex flex-wrap gap-3">
-        <ButtonLink href={site.apps.android} variant="light" size="lg">
-          <Smartphone /> Google Play
-        </ButtonLink>
-        <ButtonLink href={site.apps.ios} variant="light" size="lg">
-          <Smartphone /> App Store
-        </ButtonLink>
-      </div>
-    ),
+    cta: <StoreBadges />,
   },
   {
     title: "Peça sua música",

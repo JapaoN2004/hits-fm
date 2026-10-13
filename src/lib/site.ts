@@ -23,12 +23,15 @@ export const site = {
     hours: "Segunda a sexta, das 8h às 18h",
   },
   social: {
-    instagram: "https://www.instagram.com/", // TODO(cliente): perfil oficial do Instagram
-    facebook: "https://www.facebook.com/", // TODO(cliente): página oficial do Facebook
+    instagram: "https://www.instagram.com/hitsfmpalmasto/",
+    facebook: "https://www.facebook.com/hitsfmpalmas",
   },
+  // Com null, o botão daquela loja não aparece.
   apps: {
-    android: "https://play.google.com/store", // TODO(cliente): link do app na Play Store
-    ios: "https://apps.apple.com/", // TODO(cliente): link do app na App Store
+    // TODO(cliente): link do app na Play Store. O do site antigo
+    // (com.br.sunshineapps.radiohits) hoje abre um jogo que não é da rádio.
+    android: null as string | null,
+    ios: "https://apps.apple.com/br/app/hits-fm-to/id1518911745" as string | null,
   },
 } as const;
 

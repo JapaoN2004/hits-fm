@@ -95,12 +95,16 @@ export function LiveStudio() {
           >
             <WhatsappIcon /> Pedir música
           </ButtonLink>
-          <ButtonLink href={site.apps.android} variant="outline" className="w-full">
-            <Smartphone /> App Android
-          </ButtonLink>
-          <ButtonLink href={site.apps.ios} variant="outline" className="w-full">
-            <Smartphone /> App iPhone
-          </ButtonLink>
+          {site.apps.android && (
+            <ButtonLink href={site.apps.android} variant="outline" className="w-full">
+              <Smartphone /> App Android
+            </ButtonLink>
+          )}
+          {site.apps.ios && (
+            <ButtonLink href={site.apps.ios} variant="outline" className="w-full">
+              <Smartphone /> App iPhone
+            </ButtonLink>
+          )}
         </div>
       </aside>
     </div>
