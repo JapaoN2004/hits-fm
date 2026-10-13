@@ -16,7 +16,7 @@ export function Footer() {
     <footer className="bg-primary-dark mt-auto text-white">
       <Container className="grid gap-10 py-14 md:grid-cols-3">
         <div className="space-y-4">
-          <Logo light />
+          <Logo className="h-28" />
           <p className="text-white/80">{site.tagline}</p>
           <div className="flex gap-2">
             <a

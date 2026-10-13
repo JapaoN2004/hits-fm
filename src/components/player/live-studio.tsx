@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { Clock, ListMusic, Smartphone } from "lucide-react";
 import { useGrid } from "@/components/schedule/schedule-provider";
+import logo from "../../../public/brand/logo-hits.png";
 import { WhatsappIcon } from "@/components/icons/social";
 import { LiveBadge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
@@ -30,9 +32,12 @@ export function LiveStudio() {
     <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
       <div className="bg-primary flex flex-col items-center gap-6 rounded-md px-6 py-12 text-center text-white sm:py-16">
         <LiveBadge />
-        <p className="font-display text-5xl font-black italic sm:text-6xl">
-          HITS <span className="text-accent">FM</span> 93.5
-        </p>
+        <Image
+          src={logo}
+          alt="Hits FM 93.5"
+          sizes="176px"
+          className="size-36 rounded-full bg-white p-2 sm:size-44"
+        />
         <PlayButton size="xl" />
         <Equalizer active={status === "playing"} className="h-14 gap-1.5" barClassName="w-2" />
         <div aria-live="polite">

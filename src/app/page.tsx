@@ -1,4 +1,5 @@
 import { ArrowRight, Gift, Smartphone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { HostCard } from "@/components/hosts/host-card";
 import { NewsCard } from "@/components/news/news-card";
@@ -10,6 +11,7 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { getHosts, latestNews } from "@/lib/content";
 import { site } from "@/lib/site";
+import logo from "../../public/brand/logo-hits.png";
 
 export default async function Home() {
   const [hosts, news] = await Promise.all([getHosts(), latestNews(6)]);
@@ -36,10 +38,11 @@ export default async function Home() {
               Conheça a Hits <ArrowRight />
             </ButtonLink>
           </div>
-          <div className="bg-primary flex aspect-square flex-col items-center justify-center gap-2 rounded-md text-center text-white">
-            <span className="font-display text-7xl font-black italic">HITS</span>
-            <span className="font-display text-accent text-4xl font-extrabold italic">FM 93.5</span>
-            <span className="mt-2 text-white/80">{site.tagline}</span>
+          <div className="bg-surface-2 flex aspect-square flex-col items-center justify-center gap-4 rounded-md p-10 text-center">
+            <Image src={logo} alt="Logo da Hits FM 93.5" sizes="300px" className="w-3/4" />
+            <span className="font-display text-primary text-xl font-extrabold uppercase">
+              {site.tagline}
+            </span>
           </div>
         </div>
       </Section>

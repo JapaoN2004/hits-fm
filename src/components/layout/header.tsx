@@ -72,8 +72,8 @@ export function Header() {
       </div>
 
       {/* Logo */}
-      <Container className="flex h-24 items-center justify-between xl:relative xl:justify-center">
-        <Logo />
+      <Container className="flex h-28 items-center justify-between xl:relative xl:justify-center">
+        <Logo priority className="h-24" />
         <HeaderListenButton className="absolute right-8 hidden xl:inline-flex" />
         <button
           type="button"

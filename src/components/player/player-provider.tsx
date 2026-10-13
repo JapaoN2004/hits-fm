@@ -196,7 +196,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       artist: `${site.name} · Ao vivo`,
       album: site.city,
       // TODO(cliente): capa com o logo oficial (512x512).
-      artwork: [{ src: "/favicon.ico", sizes: "48x48", type: "image/x-icon" }],
+      artwork: [{ src: "/brand/logo-hits.png", sizes: "520x520", type: "image/png" }],
     });
     navigator.mediaSession.setActionHandler("play", play);
     navigator.mediaSession.setActionHandler("pause", pause);
